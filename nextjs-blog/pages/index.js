@@ -46,17 +46,6 @@ export default function Home() {
     });
   };
 
-  if (isLoading) {
-    return (
-      <Layout home>
-        <Head>
-          <title>{siteTitle}</title>
-        </Head>
-        {isLoading && <Spin />}
-      </Layout>
-    );
-  }
-
   const objectMapper = (obj) => {
     const { gsx$artisan, gsx$website, gsx$instagram, id } = obj;
     const key = id[Object.keys(id)[0]];
@@ -69,10 +58,9 @@ export default function Home() {
     return mappedObject;
   };
 
-  if (!isLoading && isLoaded) {
+  if (isLoaded) {
     googleSheetJson.map((obj) => {
-      const { category, content, link, title, updated, ...rest } = obj;
-      const newObj = objectMapper(rest);
+      const newObj = objectMapper(obj);
       filteredData = [...filteredData, newObj];
     });
   }
@@ -83,10 +71,7 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        {isLoading && <Spin />}
-        {isLoaded && !isLoading && (
-          <Table dataSource={filteredData} columns={columns} />
-        )}
+        <Table dataSource={filteredData} columns={columns} loading={isLoading}/>
       </section>
     </Layout>
   );
