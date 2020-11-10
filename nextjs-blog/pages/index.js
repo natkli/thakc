@@ -10,18 +10,18 @@ const googleSheetUrl = `https://spreadsheets.google.com/feeds/list/${googleSheet
 const columns = [
   {
     title: 'Artist',
-    dataIndex: 'gsx$artisan',
-    key: 'gsx$artisan',
+    dataIndex: 'artist',
+    key: 'artist',
   },
   {
     title: 'Website',
-    dataIndex: 'gsx$website',
-    key: 'gsx$website',
+    dataIndex: 'website',
+    key: 'website',
   },
   {
     title: 'Instagram',
-    dataIndex: 'gsx$instagram',
-    key: 'gsx$instagram',
+    dataIndex: 'instagram',
+    key: 'instagram',
   },
 ];
 
@@ -64,12 +64,7 @@ export default function Home() {
     const website = gsx$website[Object.keys(gsx$website)[0]];
     const instagram = gsx$instagram[Object.keys(gsx$instagram)[0]];
 
-    const mappedObject = {
-      key,
-      artist,
-      website,
-      instagram,
-    };
+    const mappedObject = { key, artist, website, instagram };
 
     return mappedObject;
   };
@@ -89,8 +84,9 @@ export default function Home() {
       </Head>
       <section className={utilStyles.headingMd}>
         {isLoading && <Spin />}
-        {console.log(filteredData)}
-        {isLoaded && <Table dataSource={filteredData} columns={columns} />}
+        {isLoaded && !isLoading && (
+          <Table dataSource={filteredData} columns={columns} />
+        )}
       </section>
     </Layout>
   );
