@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
-import Layout, { siteTitle } from '../components/layout';
+import MainLayout, { siteTitle } from '../components/layout';
 import utilStyles from '../styles/utils.module.css';
-import { Spin, Table } from 'antd';
+import { Table } from 'antd';
 
 const googleSheetId = '1O6Ewaxp6TbsoPoJuHPh4YUmVJl7yUXx_uq9_GHxKRmc';
 const googleSheetUrl = `https://spreadsheets.google.com/feeds/list/${googleSheetId}/od6/public/values?alt=json`;
@@ -66,13 +66,13 @@ export default function Home() {
   }
 
   return (
-    <Layout home>
+    <MainLayout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
         <Table dataSource={filteredData} columns={columns} loading={isLoading}/>
       </section>
-    </Layout>
+    </MainLayout>
   );
 }
